@@ -1,5 +1,5 @@
 -- | Lens and Labels SQLFragment integration tests.
-{-# LANGUAGE DataKinds, OverloadedStrings #-}
+{-# LANGUAGE DataKinds, OverloadedStrings, FlexibleContexts #-}
 {-# LANGUAGE NoMonomorphismRestriction #-}
 
 module Database.SQLFragment.LensSpec where 
