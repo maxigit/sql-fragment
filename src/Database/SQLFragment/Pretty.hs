@@ -13,7 +13,7 @@ Attribute
 -- standard
 -- third-party
 import qualified Text.PrettyPrint as P
-import Text.PrettyPrint (Doc, (<>), (<+>))
+import Text.PrettyPrint (Doc, (<+>))
 -- local
 import Database.SQLFragment.SQLFragment
 

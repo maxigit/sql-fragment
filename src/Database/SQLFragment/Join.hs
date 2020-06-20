@@ -1,4 +1,4 @@
-{-# LANGUAGE TypeFamilies, DataKinds, TypeOperators #-}
+{-# LANGUAGE TypeFamilies, DataKinds, TypeOperators, FlexibleContexts #-}
 {-# LANGUAGE OverloadedStrings #-}
 {- | 'Join' are at the heart of the *autojoin* mechanism.
  - Instead of specifying the joins between table whilst building the query.

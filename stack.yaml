@@ -2,6 +2,7 @@ flags: {}
 packages:
 - '.'
 extra-deps:
-- HList-0.3.4.1
 - regex-pcre-0.94.4
-resolver: lts-2.22
+- HList-0.5.0.0
+resolver: lts-12.26
+-- allow-newer: true

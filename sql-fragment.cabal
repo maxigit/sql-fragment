@@ -10,7 +10,7 @@ name:                sql-fragment
 -- PVP summary:      +-+------- breaking API changes
 --                   | | +----- non-breaking API additions
 --                   | | | +--- code changes with no API change
-version:             0.0.1.0
+version:             0.1.0.0
 
 -- A short (one-line) description of the package.
 synopsis:            SQL query combinator
@@ -56,7 +56,6 @@ library
   exposed-modules: Database.SQLFragment
                , Database.SQLFragment.Operators
                , Database.SQLFragment.SQLFragment
-               , Database.SQLFragment.Dimensional
                , Database.SQLFragment.TypeFamilies
                , Database.SQLFragment.Pretty
                , Database.SQLFragment.Proxies
@@ -70,14 +69,14 @@ library
   
   -- Other library packages from which modules are imported.
   build-depends:       base >=4.6 && <5
-                       , HList >= 0.3.4.1 && < 0.4
+                       , HList >= 0.5 && < 0.6
                        , containers
                        , regex-pcre >= 0.94 && <1.0
-                       , dimensional >= 0.13 && < 0.14
+                       , dimensional >= 1.1 && <2.0
                        , split >= 0.2.2 && <0.3
                        , lens >= 4.4.0.1 && < 5.0
-                       , mtl >= 2.1.3.1 && < 2.2
-                       , tagged >= 0.7.2 && <0.8
+                       , mtl >= 2.2.2 && < 2.3
+                       , tagged >= 0.8.5 && < 0.9
                        , pretty >= 1.1.1.1 && <1.2
 
   -- Directories containing source files.
@@ -100,7 +99,7 @@ executable generate-fragment
   
 test-suite quick
         type: exitcode-stdio-1.0
-        main-is: quick.hs
+        main-is: Quick.hs
         hs-source-dirs: tests,src
 
         build-depends:

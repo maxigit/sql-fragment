@@ -24,12 +24,10 @@ module Database.SQLFragment (
 
 module Database.SQLFragment.SQLFragment
 , module Database.SQLFragment.Operators
-, module Database.SQLFragment.Dimensional
 , module Database.SQLFragment.Join
 ) where
 import Database.SQLFragment.SQLFragment
 import Database.SQLFragment.Operators
-import Database.SQLFragment.Dimensional
 import Database.SQLFragment.Join
 
 {- $example

@@ -39,14 +39,14 @@ infixl 8 !#!, !#:!, !#:@!, !#:#!
 
 (!&!) :: SQLFragment e p
       -> SQLFragment e' p'
-      -> SQLFragment (HAppendList e e') (HAppendList p p')
+      -> SQLFragment (HAppendListR e e') (HAppendListR p p')
 
 q !&! q' = forgetTypes $ (clearTypes q) <> (clearTypes q')
 
 -- | Same as !&! but higher fixity
 (!#!) :: SQLFragment e p
       -> SQLFragment e' p'
-      -> SQLFragment (HAppendList e e') (HAppendList p p')
+      -> SQLFragment (HAppendListR e e') (HAppendListR p p')
 
 q !#! q' = forgetTypes $  q !&! q'
 
@@ -59,7 +59,7 @@ q !#! q' = forgetTypes $  q !&! q'
 -- >>> toSelectQuery' $  "a" !\! "b > 1"
 -- "SELECT a WHERE (b > 1)"
 --
-(!\!) :: SQLFragment a  b -> SQLFragment a' b' -> SQLFragment a (HAppendList b b')
+(!\!) :: SQLFragment a  b -> SQLFragment a' b' -> SQLFragment a (HAppendListR b b')
 q !\! q' = forgetTypes $   q !&! q0' !&! q'' where
     q0' = clearSection COLUMN q'
     q'' = pickSection COLUMN WHERE q'
@@ -69,7 +69,7 @@ q !\! q' = forgetTypes $   q !&! q0' !&! q'' where
 -- >>> toSelectQuery' $  "a" !\\! "b > 1"
 -- "SELECT a HAVING (b > 1)"
 --
-(!\\!) :: SQLFragment a  b -> SQLFragment a' b' -> SQLFragment a (HAppendList b b')
+(!\\!) :: SQLFragment a  b -> SQLFragment a' b' -> SQLFragment a (HAppendListR b b')
 q !\\! q' = forgetTypes $   q !&! q0' !&! q'' where
     q0' = clearSection COLUMN q'
     q'' = pickSection COLUMN HAVING q'
@@ -80,7 +80,7 @@ q !\\! q' = forgetTypes $   q !&! q0' !&! q'' where
 -- >>> toSelectQuery' $ "t.a" !~! ("a" !\! "b > 1")
 -- "SELECT t.a FROM t GROUP BY a HAVING (b > 1)"
 --
-(!~!) :: SQLFragment a b -> SQLFragment a' b' -> SQLFragment a (HAppendList b b')
+(!~!) :: SQLFragment a b -> SQLFragment a' b' -> SQLFragment a (HAppendListR b b')
 q !~! q' = forgetTypes$ q !&! q0' !&! q'' where
     q0' = clearSection COLUMN . clearSection WHERE $ q'
     q'' = pickSection COLUMN GROUP q' !&! pickSection WHERE HAVING q'
@@ -222,7 +222,7 @@ buildBoolParamOp :: (SQLFragment p' '[]
                         -> SQLFragment (ZipToBool p' b) '[])
                  -> SQLFragment e p
                  -> SQLFragment p' '[]
-                 -> SQLFragment e (HAppendList p p')
+                 -> SQLFragment e (HAppendListR p p')
 buildBoolParamOp op q q' = forgetTypes $ q !\! op q' (fromString "?")
 
 

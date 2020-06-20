@@ -117,15 +117,16 @@ data SQLFragment (e :: [*]) (p :: [*])=  SQLFragment
     } deriving (Show, Eq)
 
 
-instance Monoid (SQLFragment '[] '[]) where
-    mempty = SQLFragment mempty
+instance Semigroup (SQLFragment '[] '[]) where
     -- | Join to fragment but keep the tables unique.
     -- However, tables need to be kept in their original order if 
     -- possible.
-    mappend (SQLFragment clauses) (SQLFragment clauses') =
+    (SQLFragment clauses) <> (SQLFragment clauses') =
         SQLFragment ( Map.unionWithKey mergeClause clauses clauses') where
             mergeClause FROM ts ts' = joinTables ts ts'
-            mergeClause _ ts ts' = mappend ts ts'
+            mergeClause _ ts ts' = ts <> ts'
+instance Monoid (SQLFragment '[] '[]) where
+    mempty = SQLFragment mempty
 
 -- | Join tables by remove duplicated  and keeping the original
 -- order if possible. Please note that the implementation

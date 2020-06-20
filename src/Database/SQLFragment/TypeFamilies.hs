@@ -48,7 +48,7 @@ type family GetLabels (as :: [*]) where
     GetLabels ((Tagged l a) ': as) = a ': GetLabels as
     GetLabels (a ': as) = GetLabels as
 
-type family GetLabel a :: k where
+type family GetLabel (a :: *) :: k where
     GetLabel (Tagged (l :: k) a)  = l
     GetLabel a = ()
     
